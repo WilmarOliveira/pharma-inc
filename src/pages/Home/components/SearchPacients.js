@@ -9,16 +9,17 @@ const SearchPacients = () => {
         <TextField 
             fullWidth 
             size='small' 
-            label="Searching" 
-            variant="outlined" 
-            style={{marginBottom: '20px'}}
+            label='Searching' 
+            variant='outlined' 
+            style={{marginBottom: '20px', backgroundColor: '#fff'}}
             InputProps={{
                 endAdornment: (
-                  <InputAdornment position="end">
+                  <InputAdornment position='end'>
                     <SearchIcon />
                   </InputAdornment>
                 ),
-            }} />
+            }} 
+        />
         
     )
 }
