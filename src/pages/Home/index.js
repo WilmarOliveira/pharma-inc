@@ -1,5 +1,6 @@
 import { ContainerHome, Description, Content } from './Styles';
 import PacientsList from './components/PacientsList';
+import SearchPacients from './components/SearchPacients';
 
 const Home = () => {
 
@@ -11,6 +12,7 @@ const Home = () => {
                     "Tu autem in specie, non videntur, nec omnino res est."
                     Et examine ab eis praecepta eius quae habes, et primo et principaliter
                 </Description>
+                <SearchPacients />
                 <PacientsList />
             </Content>
         </ContainerHome>

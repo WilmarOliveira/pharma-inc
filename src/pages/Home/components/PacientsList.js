@@ -5,44 +5,61 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
+const StyledTableCellHeader = withStyles(() => ({
+  head: {
+    backgroundColor: '#E5E4E2',
+    color: '#000',
+    fontWeight: 'bold',
+    border: '1px #000 solid'
+
+  }
+}))(TableCell);
+
+const StyledTableCellRow = withStyles(() => ({
+  body: {
+    border: '1px #000 solid'
+
+  }
+}))(TableCell);
 
 const PacientsList = () => {
 
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
+    function createData(name, gender, birth) {
+        return { name, gender, birth};
       }
       
       const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9),
+        createData('Freddy Krueger', 'Male', '02/01/1964'),
+        createData('Michael Myers', 'Male', '02/01/1964'),
+        createData('Samara Morgan', 'Female', '02/01/1964'),
+        createData('Jason Vorhees', 'Male', '02/01/1964'),
+        createData('Regan McNeil', 'Female', '02/01/1964'),
       ];
 
 
     return(
         <TableContainer component={Paper}>
-      <Table size="small" aria-label="a dense table">
+      <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <StyledTableCellHeader align="center">Name</StyledTableCellHeader>
+            <StyledTableCellHeader align="center">Gender</StyledTableCellHeader>
+            <StyledTableCellHeader align="center">Birth</StyledTableCellHeader>
+            <StyledTableCellHeader align="center">Actions</StyledTableCellHeader>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <StyledTableCellRow align="center">{row.name}</StyledTableCellRow>
+              <StyledTableCellRow align="center">{row.gender}</StyledTableCellRow>
+              <StyledTableCellRow align="center">{row.birth}</StyledTableCellRow>
+              <StyledTableCellRow align="center">
+                <Button size="small" variant="contained" style={{ color: '#fff', backgroundColor: '#353839' }}>View</Button>
+              </StyledTableCellRow>
             </TableRow>
           ))}
         </TableBody>
