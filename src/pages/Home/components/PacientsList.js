@@ -8,6 +8,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import dayjs from 'dayjs'
+import { useState } from 'react';
+import ViewPacientInformation from './ViewPacientInformation';
 
 
 const StyledTableCellHeader = withStyles(() => ({
@@ -28,44 +30,52 @@ const StyledTableCellRow = withStyles(() => ({
 }))(TableCell);
 
 const PacientsList = ({ pacientsList }) => {
+  const [open, setOpen] = useState(false);
+  const [currentPacient, setCurrentPacient] = useState();
 
-    function createData(name, gender, birth) {
-        return { name, gender, birth};
+    function createData(email, name, gender, birth) {
+        return { email, name, gender, birth};
       }
       
     const rows = pacientsList.map((value) => {
-      const formatedDate = dayjs(value?.registered.date).format('DD/MM/YYYY');
-      return createData(value?.name.first, value?.gender, formatedDate);
+      const formatedDate = dayjs(value?.dob.date).format('DD/MM/YYYY');
+      return createData(value.email, value?.name.first, value?.gender, formatedDate);
     });
 
-    //const rows = [];
-
+    const handleOnClick = (row) => {
+      const pacient = pacientsList.find(pacient => pacient.email === row.email);
+      setCurrentPacient(pacient);
+      setOpen(true);
+    }
 
     return(
-        <TableContainer component={Paper}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <StyledTableCellHeader align='center'>Name</StyledTableCellHeader>
-            <StyledTableCellHeader align='center'>Gender</StyledTableCellHeader>
-            <StyledTableCellHeader align='center'>Birth</StyledTableCellHeader>
-            <StyledTableCellHeader align='center'>Actions</StyledTableCellHeader>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <StyledTableCellRow align='center'>{row.name}</StyledTableCellRow>
-              <StyledTableCellRow align='center'>{row.gender}</StyledTableCellRow>
-              <StyledTableCellRow align='center'>{row.birth}</StyledTableCellRow>
-              <StyledTableCellRow align='center'>
-                <Button size='small' variant='contained' style={{ color: '#fff', backgroundColor: '#353839' }}>View</Button>
-              </StyledTableCellRow>
+      <>
+      <TableContainer component={Paper}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <StyledTableCellHeader align='center'>Name</StyledTableCellHeader>
+              <StyledTableCellHeader align='center'>Gender</StyledTableCellHeader>
+              <StyledTableCellHeader align='center'>Birth</StyledTableCellHeader>
+              <StyledTableCellHeader align='center'>Actions</StyledTableCellHeader>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.email}>
+                <StyledTableCellRow align='center'>{row.name}</StyledTableCellRow>
+                <StyledTableCellRow align='center'>{row.gender}</StyledTableCellRow>
+                <StyledTableCellRow align='center'>{row.birth}</StyledTableCellRow>
+                <StyledTableCellRow align='center'>
+                  <Button onClick={() => handleOnClick(row)} size='small' variant='contained' style={{ color: '#fff', backgroundColor: '#353839' }}>View</Button>
+                </StyledTableCellRow>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <ViewPacientInformation currentPacient={currentPacient} open={open} setClose={() => setOpen(false)} />
+      </>
     )
 }
 

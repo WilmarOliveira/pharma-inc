@@ -19,3 +19,8 @@ export const Description = styled.div`
     max-width: 555px;
     padding-bottom: 40px;
 `
+
+export const ContainerPacientInformation = styled.div`
+    width: 600px;
+    height: 600px
+`
