@@ -1,33 +1,14 @@
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import dayjs from 'dayjs'
 import { useState } from 'react';
 import ViewPacientInformation from './ViewPacientInformation';
-
-
-const StyledTableCellHeader = withStyles(() => ({
-  head: {
-    backgroundColor: '#E5E4E2',
-    color: '#000',
-    fontWeight: 'bold',
-    border: '1px #000 solid'
-
-  }
-}))(TableCell);
-
-const StyledTableCellRow = withStyles(() => ({
-  body: {
-    border: '1px #000 solid'
-
-  }
-}))(TableCell);
+import { StyledTableCellHeader, StyledTableCellRow } from '../Styles';
 
 const PacientsList = ({ pacientsList }) => {
   const [open, setOpen] = useState(false);

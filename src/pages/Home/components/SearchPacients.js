@@ -1,4 +1,4 @@
-import TextField from '@material-ui/core/TextField';
+import { StyledTextFieldSearch } from '../Styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -6,12 +6,11 @@ const SearchPacients = () => {
 
     return(
         
-        <TextField 
+        <StyledTextFieldSearch 
             fullWidth 
             size='small' 
             label='Searching' 
             variant='outlined' 
-            style={{marginBottom: '20px', backgroundColor: '#fff'}}
             InputProps={{
                 endAdornment: (
                   <InputAdornment position='end'>
