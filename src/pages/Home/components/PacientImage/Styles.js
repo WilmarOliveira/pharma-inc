@@ -4,7 +4,7 @@ export const PacientDivImage = styled.div`
 display: flex;
 width: 200px;
 height: 200px;
-margin: 0 auto 20px auto;
+margin: -10px auto 20px auto;
 justify-content: center;
 align-items: center;
 border-radius: 50%;

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -5,10 +6,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import dayjs from 'dayjs'
 import { useState } from 'react';
 import ViewPacientInformation from '../ViewPacientInformation';
 import { StyledTableCellHeader, StyledTableCellRow } from './Styles';
+import { getFormattedDate } from '../../../../utils/utils';
 
 const PacientsList = ({ pacientsList }) => {
   const [open, setOpen] = useState(false);
@@ -18,13 +19,13 @@ const PacientsList = ({ pacientsList }) => {
       return value;
     }
 
-    const rows = pacientsList.map((value) => {
+    const rows = useMemo(() => {
+      const updatedRows = pacientsList.map((value) => {
         return createData(value);
-    });
+      });
 
-    const getFormattedDate = (value) => {
-      return dayjs(value).format('DD/MM/YYYY');
-    }
+      return updatedRows;
+    }, [pacientsList])
 
     const handleOnClick = (row) => {
       setCurrentPacient(row);

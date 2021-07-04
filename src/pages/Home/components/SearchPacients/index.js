@@ -2,7 +2,7 @@ import { StyledTextFieldSearch } from './Styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 
-const SearchPacients = () => {
+const SearchPacients = ({ setSearch }) => {
 
     return(
         
@@ -10,7 +10,8 @@ const SearchPacients = () => {
             fullWidth 
             size='small' 
             label='Searching' 
-            variant='outlined' 
+            variant='outlined'
+            onChange={(e) => setSearch(e.target.value)}
             InputProps={{
                 endAdornment: (
                   <InputAdornment position='end'>
