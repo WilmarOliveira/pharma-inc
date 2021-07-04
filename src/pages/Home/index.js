@@ -14,7 +14,6 @@ const Home = () => {
           await axios.get(`${BASE_URL}/?results=5`)
           .then(response => {
               setData(response.data.results)
-              console.log(response.data);
           })
     
         }

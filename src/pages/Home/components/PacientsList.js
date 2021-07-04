@@ -14,18 +14,20 @@ const PacientsList = ({ pacientsList }) => {
   const [open, setOpen] = useState(false);
   const [currentPacient, setCurrentPacient] = useState();
 
-    function createData(email, name, gender, birth) {
-        return { email, name, gender, birth};
-      }
-      
+    const createData = (value) => {
+      return value;
+    }
+
     const rows = pacientsList.map((value) => {
-      const formatedDate = dayjs(value?.dob.date).format('DD/MM/YYYY');
-      return createData(value.email, value?.name.first, value?.gender, formatedDate);
+        return createData(value);
     });
 
+    const getFormattedDate = (value) => {
+      return dayjs(value).format('DD/MM/YYYY');
+    }
+
     const handleOnClick = (row) => {
-      const pacient = pacientsList.find(pacient => pacient.email === row.email);
-      setCurrentPacient(pacient);
+      setCurrentPacient(row);
       setOpen(true);
     }
 
@@ -44,9 +46,9 @@ const PacientsList = ({ pacientsList }) => {
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.email}>
-                <StyledTableCellRow align='center'>{row.name}</StyledTableCellRow>
+                <StyledTableCellRow align='center'>{`${row.name.first} ${row.name.last}`}</StyledTableCellRow>
                 <StyledTableCellRow align='center'>{row.gender}</StyledTableCellRow>
-                <StyledTableCellRow align='center'>{row.birth}</StyledTableCellRow>
+                <StyledTableCellRow align='center'>{getFormattedDate(row.dob.date)}</StyledTableCellRow>
                 <StyledTableCellRow align='center'>
                   <Button onClick={() => handleOnClick(row)} size='small' variant='contained' style={{ color: '#fff', backgroundColor: '#353839' }}>View</Button>
                 </StyledTableCellRow>
@@ -55,7 +57,7 @@ const PacientsList = ({ pacientsList }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <ViewPacientInformation currentPacient={currentPacient} open={open} setClose={() => setOpen(false)} />
+      {open && <ViewPacientInformation currentPacient={currentPacient} open={open} setClose={() => setOpen(false)} />}
       </>
     )
 }

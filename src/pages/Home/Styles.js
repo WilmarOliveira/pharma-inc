@@ -19,12 +19,28 @@ export const Content = styled.div`
 
 export const Description = styled.div`
     max-width: 555px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 `
 
 export const ContainerPacientInformation = styled.div`
     width: 600px;
-    height: 600px
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`
+
+export const InformationLine = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`
+
+export const InformationLineName = styled(InformationLine)`
+    font-size: 22px; 
+    font-weight: bold; 
+    padding-bottom: 10px;
 `
 
 export const StyledTextFieldSearch = styled(TextField)`
@@ -46,5 +62,21 @@ export const StyledTableCellHeader = styled(TableCell)`
 export const StyledTableCellRow = styled(TableCell)`
     &.MuiTableCell-body {
         border: 1px #000 solid;
+        text-transform: capitalize;
+    }
+`
+
+export const PacientDivImage = styled.div`
+    display: flex;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px auto;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+
+    img {
+        width: 100%;
+        border-radius: 50%;
     }
 `
