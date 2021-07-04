@@ -7,8 +7,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import dayjs from 'dayjs'
 import { useState } from 'react';
-import ViewPacientInformation from './ViewPacientInformation';
-import { StyledTableCellHeader, StyledTableCellRow } from '../Styles';
+import ViewPacientInformation from '../ViewPacientInformation';
+import { StyledTableCellHeader, StyledTableCellRow } from './Styles';
 
 const PacientsList = ({ pacientsList }) => {
   const [open, setOpen] = useState(false);

@@ -1,4 +1,4 @@
-import { PacientDivImage } from '../Styles';
+import { PacientDivImage } from './Styles';
 
 const PacientImage = ({ src, alt }) => {
 

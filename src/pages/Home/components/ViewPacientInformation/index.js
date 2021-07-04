@@ -1,6 +1,6 @@
 import Dialog from '@material-ui/core/Dialog';
-import { ContainerPacientInformation, InformationLine, InformationLineName } from '../Styles';
-import PacientImage from './PacientImage';
+import { ContainerPacientInformation, InformationLine, InformationLineName } from './Styles';
+import PacientImage from '../PacientImage';
 
 const ViewPacientInformation = ({ currentPacient, open, setClose }) => {
 
