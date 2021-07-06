@@ -2,12 +2,14 @@ import { useEffect, useState, useMemo } from 'react';
 import { ContainerHome, Description, Content } from './Styles';
 import PacientsList from './components/PacientsList';
 import SearchPacients from './components/SearchPacients';
+import TableLoader from './components/Loaders/TableLoader';
 import { getFullName } from '../../utils/utils';
 import axios from 'axios';
 
 const Home = () => {
     const BASE_URL = 'https://randomuser.me/api';
     const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [search, setSearch] = useState('');
 
     const filteredData = useMemo(() => {
@@ -24,16 +26,12 @@ const Home = () => {
 
     useEffect(() => {
 
-        async function fetchPacients() {
-          await axios.get(`${BASE_URL}/?results=5`)
-          .then(response => {
-              setData(response.data.results)
-          })
-    
-        }
-    
-        fetchPacients();
-    
+        axios.get(`${BASE_URL}/?results=5`)
+        .then(response => {
+            setData(response.data.results);
+            setIsLoading(false);
+        })
+        
       }, [])
 
     return(
@@ -45,7 +43,11 @@ const Home = () => {
                     Et examine ab eis praecepta eius quae habes, et primo et principaliter
                 </Description>
                 <SearchPacients setSearch={(text) => setSearch(text)} />
-                <PacientsList pacientsList={filteredData} />
+                {isLoading ?
+                    <TableLoader />
+                    :
+                    <PacientsList pacientsList={filteredData} />
+                }
             </Content>
         </ContainerHome>
     )

@@ -12,7 +12,7 @@ const Header = () => {
                 <ImageCompany>
                     <InsertPhotoIcon style={{ color: grey[500] }} />
                 </ImageCompany>
-                <TitleCompany>Company</TitleCompany>
+                <TitleCompany>Pharma Inc.</TitleCompany>
             </ContainerCompany>
             <ImageUser>
                 <PersonIcon style={{ color: grey[500] }} />
