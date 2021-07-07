@@ -5,6 +5,7 @@ export const ContainerHome = styled.div`
     flex-direction: column;
     background-color: #F5F5F5;
     height: calc(100vh - 80px);
+    overflow-x: hidden;
 `
 
 export const Content = styled.div`

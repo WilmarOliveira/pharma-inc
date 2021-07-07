@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { ContainerHome, Description, Content } from './Styles';
 import PacientsList from './components/PacientsList';
 import SearchPacients from './components/SearchPacients';
@@ -11,6 +11,8 @@ const Home = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [search, setSearch] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+
 
     const filteredData = useMemo(() => {
         if (data.length > 0) {
@@ -23,16 +25,29 @@ const Home = () => {
         return [];
     }, [search, data])
 
+     const getPacients = useCallback(async() => {
 
-    useEffect(() => {
-
-        axios.get(`${BASE_URL}/?results=5`)
+        await axios.get(`${BASE_URL}/?page=${currentPage}&results=50&seed=abc`)
         .then(response => {
-            setData(response.data.results);
+            setData([...data, ...response.data.results]);
             setIsLoading(false);
         })
+
+        // eslint-disable-next-line
+    }, [currentPage])
+
+    
+    const handleOnLoadMorePacients = useCallback(() => {
+        setCurrentPage(prev => prev + 1)
         
-      }, [])
+    }, [])
+
+
+    useEffect(() => {
+        getPacients();
+      }, [getPacients])
+    
+
 
     return(
         <ContainerHome>
@@ -44,9 +59,9 @@ const Home = () => {
                 </Description>
                 <SearchPacients setSearch={(text) => setSearch(text)} />
                 {isLoading ?
-                    <TableLoader />
+                    <TableLoader /> 
                     :
-                    <PacientsList pacientsList={filteredData} />
+                    <PacientsList pacientsList={filteredData} search={search} handleOnLoadMorePacients={handleOnLoadMorePacients} />
                 }
             </Content>
         </ContainerHome>

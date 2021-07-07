@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -11,9 +11,11 @@ import ViewPacientInformation from '../ViewPacientInformation';
 import { StyledTableCellHeader, StyledTableCellRow } from './Styles';
 import { getFormattedDate } from '../../../../utils/utils';
 
-const PacientsList = ({ pacientsList }) => {
+const PacientsList = ({ pacientsList, handleOnLoadMorePacients, search }) => {
   const [open, setOpen] = useState(false);
   const [currentPacient, setCurrentPacient] = useState();
+
+  const loaderRef = useRef(null);
 
     const createData = (value) => {
       return value;
@@ -32,6 +34,27 @@ const PacientsList = ({ pacientsList }) => {
       setOpen(true);
     }
 
+    useEffect(() => {
+      const options = {
+        root: null,
+        rootMargin: '20px',
+        threshold: 1.0
+      };
+  
+      const observer = new IntersectionObserver((entities) => {
+        const target = entities[0];
+  
+        if (target.isIntersecting){
+          handleOnLoadMorePacients();
+        }
+      }, options);
+  
+      if (loaderRef.current){
+        observer.observe(loaderRef.current);
+      }
+
+    }, [handleOnLoadMorePacients, search]);
+
     return(
       <>
       <TableContainer component={Paper}>
@@ -46,7 +69,7 @@ const PacientsList = ({ pacientsList }) => {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.email}>
+              <TableRow key={row.login.username}>
                 <StyledTableCellRow align='center'>{`${row.name.first} ${row.name.last}`}</StyledTableCellRow>
                 <StyledTableCellRow align='center'>{row.gender}</StyledTableCellRow>
                 <StyledTableCellRow align='center'>{getFormattedDate(row.dob.date)}</StyledTableCellRow>
@@ -58,6 +81,8 @@ const PacientsList = ({ pacientsList }) => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {search.length === 0 && <div ref={loaderRef} >Loading...</div>}
       {open && <ViewPacientInformation currentPacient={currentPacient} open={open} setClose={() => setOpen(false)} />}
       </>
     )
